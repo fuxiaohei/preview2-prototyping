@@ -203,7 +203,7 @@ interface wasi-random {
   /// entirely deterministic. Host implementatations are encouraged to provide
   /// random values to any program exposed to attacker-controlled content, to
   /// enable DoS protection built into many languages' hash-map implementations.
-  insecure-random: tuple<u64, u64>
+  insecure-random: func() -> tuple<u64, u64>
 }
 
 /// # WASI Filesystem API
@@ -1160,16 +1160,16 @@ interface wasi-tcp {
   bytes-writable: func(s: socket) -> result<bytes-result, error>
 }
 
-world wasi-command {
-  import wasi-clocks: wasi-clocks
-  import wasi-default-clocks: wasi-default-clocks
-  import wasi-logging: wasi-logging
-  import wasi-stderr: wasi-stderr
-  import wasi-filesystem: wasi-filesystem
-  import wasi-random: wasi-random
-  import wasi-poll: wasi-poll
-  import wasi-tcp: wasi-tcp
-  import wasi-exit: wasi-exit
+default world wasi-command {
+  import wasi-clocks: self.wasi-clocks
+  import wasi-default-clocks: self.wasi-default-clocks
+  import wasi-logging: self.wasi-logging
+  import wasi-stderr: self.wasi-stderr
+  import wasi-filesystem: self.wasi-filesystem
+  import wasi-random: self.wasi-random
+  import wasi-poll: self.wasi-poll
+  import wasi-tcp: self.wasi-tcp
+  import wasi-exit: self.wasi-exit
 
-  default export command
+  export command: self.command
 }

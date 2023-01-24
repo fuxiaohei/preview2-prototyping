@@ -20,6 +20,7 @@ mod macros;
 
 mod bindings {
     wit_bindgen_guest_rust::generate!({
+        world: "wasi",
         path: "wit/wasi.wit",
         no_std,
         raw_strings,
