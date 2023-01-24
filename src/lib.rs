@@ -1,4 +1,5 @@
 #![allow(unused_variables)] // TODO: remove this when more things are implemented
+#![allow(unused_imports)] // TODO: remove this when more things are implemented
 
 use crate::bindings::{
     wasi_clocks, wasi_default_clocks, wasi_exit, wasi_filesystem, wasi_logging, wasi_poll,

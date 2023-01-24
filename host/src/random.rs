@@ -14,4 +14,8 @@ impl wasi_random::WasiRandom for WasiCtx {
     async fn get_random_u64(&mut self) -> anyhow::Result<u64> {
         Ok(self.random.sample(Standard))
     }
+
+    async fn insecure_random(&mut self) -> anyhow::Result<(u64, u64)> {
+        Ok((self.random.sample(Standard), self.random.sample(Standard)))
+    }
 }
